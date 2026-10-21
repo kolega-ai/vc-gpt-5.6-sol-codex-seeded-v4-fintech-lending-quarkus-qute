@@ -1,0 +1,18 @@
+plugins { id 'io.quarkus' }
+dependencies {
+    implementation enforcedPlatform('io.quarkus.platform:quarkus-bom:3.20.2')
+    implementation 'io.quarkus:quarkus-rest-qute'
+    implementation 'io.quarkus:quarkus-rest-jackson'
+    implementation 'io.quarkus:quarkus-rest-client-jackson'
+    implementation 'io.quarkus:quarkus-security'
+    implementation 'io.quarkus:quarkus-elytron-security-jdbc'
+    implementation 'io.quarkus:quarkus-elytron-security-common'
+    implementation 'io.quarkus:quarkus-jdbc-postgresql'
+    implementation 'io.quarkus:quarkus-hibernate-validator'
+    implementation 'io.quarkus:quarkus-smallrye-health'
+    implementation('org.apache.velocity:velocity-engine-core:2.3') { transitive = false }
+    implementation 'org.apache.commons:commons-lang3:3.17.0'
+    implementation 'org.slf4j:slf4j-api:2.0.17'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+}

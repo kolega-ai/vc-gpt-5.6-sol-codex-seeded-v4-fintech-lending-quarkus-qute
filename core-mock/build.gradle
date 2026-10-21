@@ -1,0 +1,8 @@
+plugins { id 'io.quarkus' }
+dependencies {
+    implementation enforcedPlatform('io.quarkus.platform:quarkus-bom:3.20.2')
+    implementation 'io.quarkus:quarkus-rest-jackson'
+    implementation 'io.quarkus:quarkus-smallrye-health'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+}

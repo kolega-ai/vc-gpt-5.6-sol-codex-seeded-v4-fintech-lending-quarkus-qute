@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: lending
+      POSTGRES_USER: lending
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports: ["${POSTGRES_PORT:-5432}:5432"]
+    volumes: ["lending-db:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lending"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  decision:
+    build: { context: ., dockerfile: decision/src/main/docker/Dockerfile.jvm }
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/lending
+      DB_USER: lending
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      SESSION_SIGNING_KEY: ${SESSION_SIGNING_KEY:?Set SESSION_SIGNING_KEY in .env}
+      CORE_SIGNING_KEY: ${CORE_SIGNING_KEY:?Set CORE_SIGNING_KEY in .env}
+      ASSISTANT_API_KEY: ${ASSISTANT_API_KEY:?Set ASSISTANT_API_KEY in .env}
+      CORE_URL: http://core-mock:8082
+      ASSISTANT_URL: http://core-mock:8082
+      UPLOAD_DIR: /data/uploads
+    volumes: ["loan-files:/data/uploads"]
+    depends_on: { postgres: { condition: service_healthy } }
+  core-mock:
+    build: { context: ., dockerfile: core-mock/src/main/docker/Dockerfile.jvm }
+    environment:
+      CORE_SIGNING_KEY: ${CORE_SIGNING_KEY:?Set CORE_SIGNING_KEY in .env}
+      ASSISTANT_API_KEY: ${ASSISTANT_API_KEY:?Set ASSISTANT_API_KEY in .env}
+    ports: ["${CORE_PORT:-8082}:8082"]
+  channel:
+    build: { context: ., dockerfile: channel/src/main/docker/Dockerfile.jvm }
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/lending
+      DB_USER: lending
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      DECISION_URL: http://decision:8081
+      SESSION_SIGNING_KEY: ${SESSION_SIGNING_KEY:?Set SESSION_SIGNING_KEY in .env}
+      FORM_ENCRYPTION_KEY: ${FORM_ENCRYPTION_KEY:?Set FORM_ENCRYPTION_KEY in .env}
+    ports: ["${CHANNEL_PORT:-8080}:8080"]
+    depends_on: [decision, core-mock]
+volumes:
+  lending-db:
+  loan-files:

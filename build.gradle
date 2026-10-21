@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+    id 'io.quarkus' version '3.20.2' apply false
+}
+
+allprojects {
+    group = 'com.northstar.lending'
+    version = '1.0.0'
+    repositories { mavenCentral() }
+}
+
+subprojects {
+    apply plugin: 'java'
+    java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+    tasks.withType(Test).configureEach { useJUnitPlatform() }
+    tasks.withType(JavaCompile).configureEach { options.compilerArgs += '-parameters' }
+}

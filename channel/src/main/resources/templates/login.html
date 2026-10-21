@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sign in · Northstar Capital</title><link rel="stylesheet" href="/assets/app.css?v={cache}"></head>
+<body class="entry-body"><main class="entry-shell">
+  <section class="entry-story" aria-label="Northstar Capital introduction"><a class="brand brand-light" href="/"><span class="brand-mark">N</span><span>Northstar Capital</span></a><div class="entry-copy"><p class="eyebrow">SMALL BUSINESS LENDING</p><h1>Funding decisions,<br><em>clearly navigated.</em></h1><p>One secure credit file from first application through final decision.</p></div><div class="trust-row"><span>Encrypted documents</span><span>Role-scoped access</span><span>Complete audit history</span></div></section>
+  <section class="entry-form"><div class="form-wrap"><p class="step-label">SECURE PORTAL</p><h2>Welcome back</h2><p class="muted">Sign in to continue your application or review queue.</p>
+    {#if error}<div class="alert alert-danger" role="alert"><strong>Sign-in failed.</strong> Check your email and password, or confirm the account is enabled.</div>{/if}
+    <form action="/j_security_check" method="post" class="stack-lg"><label>Email address<input name="j_username" type="email" autocomplete="username" required autofocus placeholder="you@company.com"></label><label>Password<input name="j_password" type="password" autocomplete="current-password" required></label><button class="btn btn-primary btn-block" type="submit">Sign in securely</button></form>
+    <div class="entry-links"><a href="/reset-password">Forgot password?</a><a href="/register">Create borrower account</a></div>
+    <aside class="demo"><strong>Demo access</strong><span>Use any role account listed in the README with <code>Welcome123!</code></span></aside>
+  </div></section>
+</main></body></html>

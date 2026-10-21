@@ -1,0 +1,22 @@
+plugins { id 'io.quarkus' }
+configurations.all {
+    resolutionStrategy.force 'com.nimbusds:nimbus-jose-jwt:9.37.3'
+}
+dependencies {
+    implementation enforcedPlatform('io.quarkus.platform:quarkus-bom:3.20.2')
+    implementation 'io.quarkus:quarkus-rest-jackson'
+    implementation 'io.quarkus:quarkus-hibernate-orm-panache'
+    implementation 'io.quarkus:quarkus-jdbc-postgresql'
+    implementation 'io.quarkus:quarkus-hibernate-validator'
+    implementation 'io.quarkus:quarkus-scheduler'
+    implementation 'io.quarkus:quarkus-smallrye-health'
+    implementation 'io.quarkus:quarkus-flyway'
+    implementation 'io.quarkus:quarkus-elytron-security-common'
+    implementation('com.nimbusds:nimbus-jose-jwt') { version { strictly '9.37.3' } }
+    implementation 'ognl:ognl:3.3.4'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+    implementation 'org.apache.commons:commons-lang3:3.17.0'
+    implementation 'commons-codec:commons-codec:1.17.1'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+}

@@ -1,0 +1,10 @@
+ALTER TABLE borrower_profile ALTER COLUMN tax_identifier_last4 TYPE VARCHAR(4), ALTER COLUMN currency TYPE VARCHAR(3);
+ALTER TABLE lending_product ALTER COLUMN currency TYPE VARCHAR(3);
+ALTER TABLE risk_policy ALTER COLUMN currency TYPE VARCHAR(3);
+ALTER TABLE loan_application ALTER COLUMN currency TYPE VARCHAR(3);
+ALTER TABLE loan_document ALTER COLUMN sha256 TYPE VARCHAR(64);
+ALTER TABLE decision_record ALTER COLUMN currency TYPE VARCHAR(3);
+ALTER TABLE payment_account ALTER COLUMN account_last4 TYPE VARCHAR(4), ALTER COLUMN routing_last4 TYPE VARCHAR(4);
+ALTER TABLE user_session ALTER COLUMN token_hash TYPE VARCHAR(64);
+ALTER TABLE password_reset ALTER COLUMN token_hash TYPE VARCHAR(64);
+ALTER TABLE webhook_endpoint ALTER COLUMN secret_hash TYPE VARCHAR(64);

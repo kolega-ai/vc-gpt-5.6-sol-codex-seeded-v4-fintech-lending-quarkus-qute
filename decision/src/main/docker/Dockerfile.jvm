@@ -1,0 +1,11 @@
+FROM gradle:8.14.3-jdk21-alpine AS build
+WORKDIR /src
+COPY . .
+RUN gradle :decision:quarkusBuild --no-daemon --no-parallel --max-workers=2
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=build /src/decision/build/quarkus-app/ ./
+RUN mkdir -p /data/uploads && chown -R 1001:0 /data
+EXPOSE 8081
+USER 1001
+ENTRYPOINT ["java","-jar","quarkus-run.jar"]
